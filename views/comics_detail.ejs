@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title><%= data.title %> - 詳細</title>
+  <link rel="stylesheet" href="/public/style.css">
+</head>
+<body>
+  <header>
+    <h1>漫画管理システム：詳細</h1>
+  </header>
+  <main class="detail-card">
+    <h1>漫画詳細</h1>
+    <div class="detail-item"><span class="detail-label">作品名</span><span class="detail-value"><%= data.title %></span></div>
+    <div class="detail-item"><span class="detail-label">巻数</span><span class="detail-value"><%= data.volume %>巻</span></div>
+    <div class="detail-item"><span class="detail-label">出版社</span><span class="detail-value"><%= data.publisher %></span></div>
+    <div class="detail-item"><span class="detail-label">完結状態</span><span class="detail-value"><%= data.isComplete %></span></div>
+
+    <div class="button-group">
+        <a href="/comics/edit/<%= id %>"><button class="btn-edit">編集する</button></a>
+        <a href="/comics/delete/<%= id %>" onclick="return confirm('削除しますか？')"><button class="btn-delete">削除する</button></a>
+    </div>
+    <a href="/comics" class="btn-back">← 一覧に戻る</a>
+</main>
+</body>
+</html>

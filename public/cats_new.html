@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>新しい猫の登録 - 猫図鑑システム</title>
+    <link rel="stylesheet" href="/public/style.css">
+</head>
+<body>
+    <header>
+        <h1>世界の猫図鑑</h1>
+    </header>
+
+    <main class="form-card">
+        <h1>新しい猫の登録</h1>
+        <form action="/cats" method="POST">
+            <div class="form-group">
+                <label>品種名</label>
+                <input type="text" name="breed" required>
+            </div>
+            <div class="form-group">
+                <label>原産地</label>
+                <input type="text" name="origin" required>
+            </div>
+            <div class="form-group">
+                <label>性格・特徴</label>
+                <input type="text" name="personality" required>
+            </div>
+            <div class="form-group">
+                <label>画像ファイル名</label>
+                <input type="text" name="image" required>
+                <small style="color: #666;">※publicフォルダ内の画像名を指定</small>
+            </div>
+            <button type="submit" class="btn-submit">図鑑に登録する</button>
+        </form>
+        <a href="/cats" class="cancel-link">図鑑に戻る</a>
+    </main>
+</body>
+</html>

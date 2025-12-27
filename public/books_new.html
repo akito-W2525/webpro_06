@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>新規書籍登録 - 蔵書管理システム</title>
+    <link rel="stylesheet" href="/public/style.css">
+</head>
+<body>
+    <header>
+        <h1>蔵書管理システム</h1>
+    </header>
+
+    <main class="form-card">
+        <h1>新規書籍登録</h1>
+        <form action="/books" method="POST">
+            <div class="form-group">
+                <label>書籍名</label>
+                <input type="text" name="title" required>
+            </div>
+            <div class="form-group">
+                <label>著者</label>
+                <input type="text" name="author" required>
+            </div>
+            <div class="form-group">
+                <label>状態</label>
+                <select name="status">
+                    <option value="保管中">保管中</option>
+                    <option value="貸出中">貸出中</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>備考</label>
+                <textarea name="memo"></textarea>
+            </div>
+            <button type="submit" class="btn-submit">この内容で登録する</button>
+        </form>
+        <a href="/books" class="cancel-link">一覧に戻る</a>
+    </main>
+</body>
+</html>

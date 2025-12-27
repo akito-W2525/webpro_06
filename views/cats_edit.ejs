@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>猫編集 - <%= data.breed %></title>
+    <link rel="stylesheet" href="/public/style.css">
+</head>
+<body>
+    <main class="form-card">
+        <h1>猫情報の編集</h1>
+        <form action="/cats/update/<%= id %>" method="POST">
+            <div class="form-group">
+                <label>品種名</label>
+                <input type="text" name="breed" value="<%= data.breed %>" required>
+            </div>
+            <div class="form-group">
+                <label>原産地</label>
+                <input type="text" name="origin" value="<%= data.origin %>" required>
+            </div>
+            <div class="form-group">
+                <label>性格・特徴</label>
+                <input type="text" name="personality" value="<%= data.personality %>" required>
+            </div>
+            <div class="form-group">
+                <label>画像ファイル名</label>
+                <input type="text" name="image" value="<%= data.image %>" required>
+            </div>
+            <button type="submit" class="btn-submit">更新を保存する</button>
+        </form>
+        <a href="/cats/<%= id %>" class="cancel-link">キャンセル</a>
+    </main>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>蔵書管理システム - 一覧</title>
+  <link rel="stylesheet" href="/public/style.css">
+</head>
+<body>
+  <header>
+    <h1>蔵書管理システム</h1>
+    <nav>
+        <a href="/">🏠ホームに戻る</a> | 
+        <a href="/public/books_new.html">新規本を登録する</a>
+    </nav>
+</header>
+  <main>
+    <h2>登録済み書籍一覧</h2>
+    <table>
+      <tr><th>ID</th><th>書籍名</th><th>著者</th><th>状態</th><th>操作</th></tr>
+      <% data.forEach((row, index) => { %>
+        <tr>
+          <td><%= row.id %></td>
+          <td><a href="/books/<%= index %>"><%= row.title %></a></td>
+          <td><%= row.author %></td>
+          <td><%= row.status %></td>
+          <td>
+            <a href="/books/edit/<%= index %>">編集</a>
+            <a href="/books/delete/<%= index %>" onclick="return confirm('削除しますか？')">削除</a>
+          </td>
+        </tr>
+      <% }) %>
+    </table>
+  </main>
+</body>
+</html>

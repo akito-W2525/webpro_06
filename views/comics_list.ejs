@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>漫画管理システム - 一覧</title>
+  <link rel="stylesheet" href="/public/style.css">
+</head>
+<body>
+  <header>
+    <h1>漫画管理システム</h1>
+    <nav>
+        <a href="/">🏠ホームに戻る</a> | 
+        <a href="/public/comics_new.html">新規作品を登録する</a>
+    </nav>
+</header>
+  <main>
+    <h2>コレクション一覧</h2>
+    <table>
+      <tr><th>ID</th><th>作品名</th><th>巻数</th><th>出版社</th><th>操作</th></tr>
+      <% data.forEach((row, index) => { %>
+        <tr>
+          <td><%= row.id %></td>
+          <td><a href="/comics/<%= index %>"><%= row.title %></a></td>
+          <td><%= row.volume %>巻</td>
+          <td><%= row.publisher %></td>
+          <td>
+            <a href="/comics/edit/<%= index %>">編集</a>
+            <a href="/comics/delete/<%= index %>" onclick="return confirm('削除しますか？')">削除</a>
+          </td>
+        </tr>
+      <% }) %>
+    </table>
+  </main>
+</body>
+</html>

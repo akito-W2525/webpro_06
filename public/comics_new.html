@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>新規作品登録 - 漫画管理システム</title>
+    <link rel="stylesheet" href="/public/style.css">
+</head>
+<body>
+    <header>
+        <h1>漫画管理システム</h1>
+    </header>
+
+    <main class="form-card">
+        <h1>新規作品登録</h1>
+        <form action="/comics" method="POST">
+            <div class="form-group">
+                <label>作品名</label>
+                <input type="text" name="title" required>
+            </div>
+            <div class="form-group">
+                <label>巻数</label>
+                <input type="number" name="volume" min="1" required>
+            </div>
+            <div class="form-group">
+                <label>出版社</label>
+                <input type="text" name="publisher" required>
+            </div>
+            <div class="form-group">
+                <label>ステータス</label>
+                <div style="display:flex; gap:20px; padding: 10px 0;">
+                    <label><input type="radio" name="isComplete" value="連載中" checked> 連載中</label>
+                    <label><input type="radio" name="isComplete" value="完結"> 完結</label>
+                </div>
+            </div>
+            <button type="submit" class="btn-submit">コレクションに追加</button>
+        </form>
+        <a href="/comics" class="cancel-link">一覧に戻る</a>
+    </main>
+</body>
+</html>

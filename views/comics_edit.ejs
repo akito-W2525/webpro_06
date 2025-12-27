@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>漫画編集 - <%= data.title %></title>
+    <link rel="stylesheet" href="/public/style.css">
+</head>
+<main class="form-card">
+    <h1>作品情報の編集</h1>
+    <form action="/comics/update/<%= id %>" method="POST">
+        <div class="form-group">
+            <label>作品名</label>
+            <input type="text" name="title" value="<%= data.title %>" required>
+        </div>
+        <div class="form-group">
+            <label>巻数</label>
+            <input type="number" name="volume" value="<%= data.volume %>" required>
+        </div>
+        <div class="form-group">
+            <label>出版社</label>
+            <input type="text" name="publisher" value="<%= data.publisher %>" required>
+        </div>
+        <div class="form-group">
+            <label>ステータス</label>
+            <div style="display:flex; gap:20px;">
+                <label><input type="radio" name="isComplete" value="連載中" <%= data.isComplete === '連載中' ? 'checked' : '' %>> 連載中</label>
+                <label><input type="radio" name="isComplete" value="完結" <%= data.isComplete === '完結' ? 'checked' : '' %>> 完結</label>
+            </div>
+        </div>
+        <button type="submit" class="btn-submit">更新を保存する</button>
+    </form>
+    <a href="/comics/<%= id %>" class="cancel-link">キャンセル</a>
+</main>
+</html>

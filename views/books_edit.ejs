@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>蔵書編集 - <%= data.title %></title>
+    <link rel="stylesheet" href="/public/style.css">
+</head>
+<body>
+    <main class="form-card">
+        <h1>蔵書情報の編集</h1>
+        <form action="/books/update/<%= id %>" method="POST">
+            <div class="form-group">
+                <label>書籍名</label>
+                <input type="text" name="title" value="<%= data.title %>" required>
+            </div>
+            <div class="form-group">
+                <label>著者</label>
+                <input type="text" name="author" value="<%= data.author %>" required>
+            </div>
+            <div class="form-group">
+                <label>状態</label>
+                <select name="status">
+                    <option value="保管中" <%= data.status === '保管中' ? 'selected' : '' %>>保管中</option>
+                    <option value="貸出中" <%= data.status === '貸出中' ? 'selected' : '' %>>貸出中</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>備考</label>
+                <textarea name="memo"><%= data.memo %></textarea>
+            </div>
+            <button type="submit" class="btn-submit">更新を保存する</button>
+        </form>
+        <a href="/books/<%= id %>" class="cancel-link">キャンセル</a>
+    </main>
+</html>　

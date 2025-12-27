@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>猫図鑑システム - 一覧</title>
+  <link rel="stylesheet" href="/public/style.css">
+</head>
+<body>
+  <header>
+    <h1>世界の猫図鑑</h1>
+    <nav>
+        <a href="/">🏠ホームに戻る</a> | 
+        <a href="/public/cats_new.html">新しい猫を登録する</a>
+    </nav>
+</header>
+  <main>
+    <h2>猫種一覧</h2>
+    <table>
+      <tr><th>ID</th><th>品種</th><th>原産地</th><th>性格</th><th>操作</th></tr>
+      <% data.forEach((row, index) => { %>
+        <tr>
+          <td><%= row.id %></td>
+          <td><a href="/cats/<%= index %>"><%= row.breed %></a></td>
+          <td><%= row.origin %></td>
+          <td><%= row.personality %></td>
+          <td>
+            <a href="/cats/edit/<%= index %>">編集</a>
+            <a href="/cats/delete/<%= index %>" onclick="return confirm('削除しますか？')">削除</a>
+          </td>
+        </tr>
+      <% }) %>
+    </table>
+  </main>
+</body>
+</html>

@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+app.use(express.urlencoded({ extended: true }));
 
 app.set('view engine', 'ejs');
 app.use("/public", express.static(__dirname + "/public"));
@@ -39,17 +40,225 @@ let station2 = [
   { id:7, code:"JE18", name:"蘇我駅", change:"内房線，外房線", passengers:31328, distance:43.0 },
 ];
 
+// 一覧
 app.get("/keiyo2", (req, res) => {
   // 本来ならここにDBとのやり取りが入る
   res.render('keiyo2', {data: station2} );
 });
 
+// Create
+app.get("/keiyo2/create", (req, res) => {
+  res.redirect('/public/keiyo2_new.html');
+});
+
+// Read
 app.get("/keiyo2/:number", (req, res) => {
   // 本来ならここにDBとのやり取りが入る
   const number = req.params.number;
   const detail = station2[ number ];
-  res.render('keiyo2_detail', {data: detail} );
+  res.render('keiyo2_detail', {id: number, data: detail} );
 });
+
+// Delete
+app.get("/keiyo2/delete/:number", (req, res) => {
+  // 本来は削除の確認ページを表示する
+  // 本来は削除する番号が存在するか厳重にチェックする
+  // 本来ならここにDBとのやり取りが入る
+  station2.splice( req.params.number, 1 );
+  res.redirect('/keiyo2' );
+});
+
+// Create
+app.post("/keiyo2", (req, res) => {
+  // 本来ならここにDBとのやり取りが入る
+  const id = station2.length + 1;
+  const code = req.body.code;
+  const name = req.body.name;
+  const change = req.body.change;
+  const passengers = req.body.passengers;
+  const distance = req.body.distance;
+  station2.push( { id: id, code: code, name: name, change: change, passengers: passengers, distance: distance } );
+  console.log( station2 );
+  res.render('keiyo2', {data: station2} );
+});
+
+// Edit
+app.get("/keiyo2/edit/:number", (req, res) => {
+  // 本来ならここにDBとのやり取りが入る
+  const number = req.params.number;
+  const detail = station2[ number ];
+  res.render('keiyo2_edit', {id: number, data: detail} );
+});
+
+// Update
+app.post("/keiyo2/update/:number", (req, res) => {
+  // 本来は変更する番号が存在するか，各項目が正しいか厳重にチェックする
+  // 本来ならここにDBとのやり取りが入る
+  station2[req.params.number].code = req.body.code;
+  station2[req.params.number].name = req.body.name;
+  station2[req.params.number].change = req.body.change;
+  station2[req.params.number].passengers = req.body.passengers;
+  station2[req.params.number].distance = req.body.distance;
+  console.log( station2 );
+  res.redirect('/keiyo2' );
+});
+
+// システム一覧
+app.get("/", (req, res) => {
+  res.render('index');
+});
+
+// 1. 蔵書システム
+let books = [
+  { id: 1, title: "十角館の殺人", author: "綾辻行人", status: "保管中", memo: "推理小説，続編未読" },
+  { id: 2, title: "国宝 上下", author: "吉田修一", status: "貸出中", memo: "文学，2026/1返却予定" },
+  { id: 3, title: "春季限定いちごタルト事件", author: "米澤穂信", status: "保管中", memo: "推理小説，2024/7 アニメ化" }
+];
+
+// 2. 漫画管理システム
+let comics = [
+  { id: 1, title: "僕のヒーローアカデミア", volume: 42, publisher: "集英社", isComplete: "完結" },
+  { id: 2, title: "カグラバチ", volume: 9, publisher: "集英社", isComplete: "連載中" },
+  { id: 3, title: "葬送のフリーレン", volume: 15, publisher: "小学館", isComplete: "連載中" }
+];
+
+// 3. 猫図鑑システム
+let cats = [
+  { id: 1, breed: "アメリカンショートヘア", origin: "アメリカ", personality: "穏やか，フレンドリー", image: "ame_short.jpg" },
+  { id: 2, breed: "シャム", origin: "タイ", personality: "社交的", image: "siamese.jpg" },
+  { id: 3, breed: "サイベリアン", origin: "ロシア", personality: "愛情深い，水を怖がらない", image: "siberian.jpg" }
+];
+
+//蔵書システム
+// 一覧
+app.get("/books", (req, res) => {
+  res.render('books_list', { data: books });
+});
+
+// 詳細
+app.get("/books/:number", (req, res) => {
+  const number = req.params.number;
+  res.render('books_detail', { id: number, data: books[number] });
+});
+
+// 追加
+app.post("/books", (req, res) => {
+  const id = books.length + 1;
+  books.push({
+    id: id,
+    title: req.body.title,
+    author: req.body.author,
+    status: req.body.status,
+    memo: req.body.memo
+  });
+  res.redirect('/books');
+});
+
+// 削除
+app.get("/books/delete/:number", (req, res) => {
+  books.splice(req.params.number, 1);
+  res.redirect('/books');
+});
+
+//　編集
+app.get("/books/edit/:number", (req, res) => {
+  const n = req.params.number;
+  res.render('books_edit', { id: n, data: books[n] });
+});
+
+// 更新
+app.post("/books/update/:number", (req, res) => {
+  const n = req.params.number;
+  books[n].title = req.body.title;
+  books[n].author = req.body.author;
+  books[n].status = req.body.status;
+  books[n].memo = req.body.memo;
+  res.redirect('/books');
+});
+
+//漫画管理システム
+app.get("/comics", (req, res) => {
+  res.render('comics_list', { data: comics });
+});
+
+app.get("/comics/:number", (req, res) => {
+  const number = req.params.number;
+  res.render('comics_detail', { id: number, data: comics[number] });
+});
+
+app.post("/comics", (req, res) => {
+  const id = comics.length + 1;
+  comics.push({
+    id: id,
+    title: req.body.title,
+    volume: req.body.volume,
+    publisher: req.body.publisher,
+    isComplete: req.body.isComplete
+  });
+  res.redirect('/comics');
+});
+
+app.get("/comics/delete/:number", (req, res) => {
+  comics.splice(req.params.number, 1);
+  res.redirect('/comics');
+});
+
+app.get("/comics/edit/:number", (req, res) => {
+  const n = req.params.number;
+  res.render('comics_edit', { id: n, data: comics[n] });
+});
+
+app.post("/comics/update/:number", (req, res) => {
+  const n = req.params.number;
+  comics[n].title = req.body.title;
+  comics[n].volume = req.body.volume;
+  comics[n].publisher = req.body.publisher;
+  comics[n].isComplete = req.body.isComplete;
+  res.redirect('/comics');
+});
+
+//猫図鑑システム
+app.get("/cats", (req, res) => {
+  res.render('cats_list', { data: cats });
+});
+
+app.get("/cats/:number", (req, res) => {
+  const number = req.params.number;
+  res.render('cats_detail', { id: number, data: cats[number] });
+});
+
+app.post("/cats", (req, res) => {
+  const id = cats.length + 1;
+  cats.push({
+    id: id,
+    breed: req.body.breed,
+    origin: req.body.origin,
+    personality: req.body.personality,
+    image: req.body.image
+  });
+  res.redirect('/cats');
+});
+
+app.get("/cats/delete/:number", (req, res) => {
+  cats.splice(req.params.number, 1);
+  res.redirect('/cats');
+});
+
+app.get("/cats/edit/:number", (req, res) => {
+  const n = req.params.number;
+  res.render('cats_edit', { id: n, data: cats[n] });
+});
+
+app.post("/cats/update/:number", (req, res) => {
+  const n = req.params.number;
+  cats[n].breed = req.body.breed;
+  cats[n].origin = req.body.origin;
+  cats[n].personality = req.body.personality;
+  cats[n].image = req.body.image;
+  res.redirect('/cats');
+});
+
+
 
 app.get("/hello1", (req, res) => {
   const message1 = "Hello world";
