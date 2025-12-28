@@ -63,7 +63,7 @@ stateDiagram-v2
 ```
 
 
-猫
+猫図鑑
 ```mermaid
 stateDiagram-v2
     state "/" as home
