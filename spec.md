@@ -6,7 +6,8 @@
 本の台本をクリックしてページ遷移
 
 #### ページ遷移図
-蔵書
+蔵書管理
+
 ```mermaid
 stateDiagram-v2
     state "/" as home
@@ -34,7 +35,8 @@ stateDiagram-v2
     list --> list : 書籍を削除
 ```
 
-漫画
+漫画管理
+
 ```mermaid
 stateDiagram-v2
     state "/" as home
@@ -64,6 +66,7 @@ stateDiagram-v2
 
 
 猫図鑑
+
 ```mermaid
 stateDiagram-v2
     state "/" as home
